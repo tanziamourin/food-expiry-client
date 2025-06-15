@@ -1,61 +1,59 @@
-import { useContext, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { FaBars, FaTimes, FaSignOutAlt } from "react-icons/fa";
 import { AuthContext } from "../contexts/AuthContext";
-import ThemeToggle from "./ThemeToggle"; // adjust path as needed
+import ThemeToggle from "./ThemeToggle";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    setIsOpen(false); // Close menu on route change
+  }, [location]);
 
   const handleLogout = () => {
     logout().catch((err) => console.error(err));
   };
 
-  const toggleMenu = () => setIsOpen(!isOpen);
+  const toggleMenu = () => setIsOpen((prev) => !prev);
+
+  const baseLinkClasses =
+    "block md:inline px-4 py-2 font-medium rounded transition-all duration-300";
+  const activeLinkClasses =
+    "bg-gradient-to-r from-green-400 to-lime-500 text-white";
+  const inactiveLinkClasses =
+    "text-gray-800 dark:text-gray-200 hover:bg-gradient-to-r from-green-400 to-lime-500 hover:text-white";
+
+  const getNavLinkClass = ({ isActive }) =>
+    `${baseLinkClasses} ${isActive ? activeLinkClasses : inactiveLinkClasses}`;
 
   const navLinks = (
     <>
-      <NavLink
-        to="/"
-        className="block md:inline px-4 py-2 font-medium text-gray-800 dark:text-gray-200 hover:bg-gradient-to-r from-green-400 to-lime-500 hover:text-white rounded transition-all duration-300"
-      >
+      <NavLink to="/" className={getNavLinkClass}>
         Home
       </NavLink>
-      <NavLink
-        to="/fridge"
-        className="block md:inline px-4 py-2 font-medium text-gray-800 dark:text-gray-200 hover:bg-gradient-to-r from-green-400 to-lime-500 hover:text-white rounded transition-all duration-300"
-      >
+      <NavLink to="/fridge" className={getNavLinkClass}>
         Fridge
       </NavLink>
       {!user && (
         <>
-          <NavLink
-            to="/login"
-            className="block md:inline px-4 py-2 font-medium text-gray-800 dark:text-gray-200 hover:bg-gradient-to-r from-green-400 to-lime-500 hover:text-white rounded transition-all duration-300"
-          >
+          <NavLink to="/login" className={getNavLinkClass}>
             Login
           </NavLink>
-          <NavLink
-            to="/register"
-            className="block md:inline px-4 py-2 font-medium text-gray-800 dark:text-gray-200 hover:bg-gradient-to-r from-green-400 to-lime-500 hover:text-white rounded transition-all duration-300"
-          >
+          <NavLink to="/register" className={getNavLinkClass}>
             Register
           </NavLink>
         </>
       )}
       {user && (
         <>
-          <NavLink
-            to="/add-food"
-            className="block md:inline px-4 py-2 font-medium text-gray-800 dark:text-gray-200 hover:bg-gradient-to-r from-green-400 to-lime-500 hover:text-white rounded transition-all duration-300"
-          >
+          <NavLink to="/add-food" className={getNavLinkClass}>
             Add Food
           </NavLink>
-          <NavLink
-            to="/my-items"
-            className="block md:inline px-4 py-2 font-medium text-gray-800 dark:text-gray-200 hover:bg-gradient-to-r from-green-400 to-lime-500 hover:text-white rounded transition-all duration-300"
-          >
+          <NavLink to="/my-items" className={getNavLinkClass}>
             My Items
           </NavLink>
         </>
@@ -75,7 +73,12 @@ const Navbar = () => {
 
         {/* Hamburger */}
         <div className="md:hidden">
-          <button onClick={toggleMenu} aria-label="Toggle Menu">
+          <button
+            onClick={toggleMenu}
+            aria-label="Toggle Menu"
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
+          >
             {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
           </button>
         </div>
@@ -88,11 +91,11 @@ const Navbar = () => {
             <>
               <div className="relative group">
                 <img
-                  src={user.photoURL}
+                  src={user.photoURL || "/default-avatar.png"}
                   alt="User"
                   className="w-10 h-10 rounded-full border-2 border-green-400 shadow-md"
                 />
-                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-1 hidden group-hover:block text-sm bg-gray-800 text-white px-3 py-1 rounded shadow-lg">
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-1 hidden group-hover:block text-sm bg-gray-800 text-white px-3 py-1 rounded shadow-lg transition duration-300">
                   {user.displayName}
                 </div>
               </div>
@@ -107,48 +110,71 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Slide-in Menu */}
-      <div
-        className={`md:hidden fixed top-0 right-0 h-full w-2/3 max-w-xs bg-white dark:bg-gray-800 shadow-lg z-40 transform transition-transform duration-300 ${
-          isOpen ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
-        <div className="p-4 flex justify-between items-center border-b">
-          <h2 className="text-xl font-semibold text-green-500 dark:text-green-300">
-            Menu
-          </h2>
-          <button onClick={toggleMenu} aria-label="Close Menu">
-            <FaTimes size={22} className="text-gray-600 dark:text-gray-300" />
-          </button>
-        </div>
-        <div className="px-4 py-4 space-y-3">{navLinks}</div>
+      {/* Mobile Slide-in Menu with Framer Motion */}
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            <motion.div
+              id="mobile-menu"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 0.1 }}
+              className="md:hidden fixed top-0 right-0 h-full w-2/3 max-w-xs bg-white dark:bg-gray-800 shadow-lg z-40"
+            >
+              <div className="p-4 flex justify-between items-center border-b">
+                <h2 className="text-xl font-semibold text-green-500 dark:text-green-300">
+                  Menu
+                </h2>
+                <button onClick={toggleMenu} aria-label="Close Menu">
+                  <FaTimes
+                    size={22}
+                    className="text-gray-600 dark:text-gray-300"
+                  />
+                </button>
+              </div>
+              <div className="px-4 py-4 space-y-3">{navLinks}
+   {/* Theme Toggle & User Info */}
+              <div className="px-4">
+                <ThemeToggle />
+                {user && (
+                  
+                                  <div className="relative group space-y-4">
+                <img
+                  src={user.photoURL || "/default-avatar.png"}
+                  alt="User"
+                  className="w-10 h-10 rounded-full border-2 border-green-400 shadow-md"
+                />
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-1 hidden group-hover:block text-sm bg-gray-800 text-white px-3 py-1 rounded shadow-lg transition duration-300">
+                  {user.displayName}
+                </div>
+              
+                    <button
+                      onClick={handleLogout}
+                      className="text-red-600 hover:text-red-800 flex items-center gap-1 text-sm font-medium"
+                    >
+                      <FaSignOutAlt /> Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+              </div>
 
-        {/* Theme Toggle & User Info */}
-        <div className="px-4 py-3 border-t flex items-center justify-between">
-          <ThemeToggle></ThemeToggle>
-          {user && (
-            <div className="flex items-center gap-3">
-              <span className="text-sm font-semibold dark:text-white">
-                {user.displayName}
-              </span>
-              <button
-                onClick={handleLogout}
-                className="text-red-600 hover:text-red-800 flex items-center gap-1 text-sm font-medium"
-              >
-                <FaSignOutAlt /> Logout
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
+           
+            </motion.div>
 
-      {/* Overlay when menu is open */}
-      {isOpen && (
-        <div
-          onClick={toggleMenu}
-          className="fixed inset-0 bg-black bg-opacity-30 md:hidden z-30"
-        ></div>
-      )}
+            {/* Overlay */}
+            <motion.div
+              onClick={toggleMenu}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.3 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 bg-black md:hidden z-30"
+            ></motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
