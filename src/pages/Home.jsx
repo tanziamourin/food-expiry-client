@@ -3,6 +3,7 @@ import NearlyExpiry from '../components/NearlyExpiry';
 
 import HeroBannerLottie from './HeroBannerLottie';
 import AwarenessSection from '../components/AwarenessSection';
+import WasteStatsDashboard from '../components/WasteStatsDashboard';
 
 
 const Home = () => {
@@ -12,6 +13,7 @@ const Home = () => {
             <HeroBannerLottie></HeroBannerLottie>
             <NearlyExpiry></NearlyExpiry>
             <AwarenessSection></AwarenessSection>
+            <WasteStatsDashboard></WasteStatsDashboard>
             
         </div>
     );

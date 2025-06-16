@@ -19,7 +19,7 @@ const AwarenessSection = () => {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-green-800 dark:text-green-200 mb-4">
+          <h2 className="text-4xl md:text-4xl font-bold text-green-800 dark:text-green-200 mb-4">
             Why Track Your Food?
           </h2>
           <p className="text-lg text-green-700 dark:text-green-300 mb-6">
