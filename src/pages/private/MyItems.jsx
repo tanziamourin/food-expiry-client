@@ -1,20 +1,17 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
+import Swal from "sweetalert2";
 
 const MyItems = () => {
   const { user } = useContext(AuthContext);
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  
-   useEffect(() => {
-      document.title = "MyItems | FoodTrack";
-    }, []);
+  useEffect(() => {
+    document.title = "MyItems | FoodTrack";
+  }, []);
 
-
-  // Modal state
   const [showUpdateModal, setShowUpdateModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
@@ -34,11 +31,11 @@ const MyItems = () => {
           const data = await res.json();
           setItems(data);
         } else {
-          alert("Failed to load your food items.");
+          Swal.fire("Error", "Failed to load your food items.", "error");
         }
       } catch (err) {
         console.error(err);
-        alert("Error fetching your items.");
+        Swal.fire("Error", "Something went wrong while fetching items.", "error");
       } finally {
         setLoading(false);
       }
@@ -47,25 +44,22 @@ const MyItems = () => {
     fetchMyFoods();
   }, [user]);
 
-  // Handle opening update modal & set form data
   const openUpdateModal = (item) => {
     setSelectedItem(item);
     setFormData({
       name: item.name,
       category: item.category,
       quantity: item.quantity,
-      expiryDate: item.expiryDate.slice(0, 10), // format for input[type=date]
+      expiryDate: item.expiryDate.slice(0, 10),
       image: item.image,
     });
     setShowUpdateModal(true);
   };
 
-  // Handle form input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Submit update
   const handleUpdateSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -86,22 +80,32 @@ const MyItems = () => {
         )
       );
       setShowUpdateModal(false);
-      alert("Item updated successfully");
+      Swal.fire("Updated!", "Item updated successfully.", "success");
     } catch (err) {
-      alert(`Failed to update item: ${err.message}`);
+      Swal.fire("Update Failed", err.message, "error");
     }
   };
 
-  // Open delete confirmation modal
-  const openDeleteModal = (item) => {
+  const openDeleteModal = async (item) => {
     setSelectedItem(item);
-    setShowDeleteModal(true);
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: `You are about to delete "${item.name}"`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#aaa",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (result.isConfirmed) {
+      handleDeleteConfirm(item);
+    }
   };
 
-  // Confirm deletion
-  const handleDeleteConfirm = async () => {
+  const handleDeleteConfirm = async (item) => {
     try {
-      const res = await fetch(`http://localhost:5000/foods/${selectedItem._id}`, {
+      const res = await fetch(`http://localhost:5000/foods/${item._id}`, {
         method: "DELETE",
       });
 
@@ -110,24 +114,30 @@ const MyItems = () => {
         throw new Error(errorData.error || "Delete failed");
       }
 
-      setItems((prev) => prev.filter((item) => item._id !== selectedItem._id));
-      setShowDeleteModal(false);
-      alert("Item deleted successfully");
+      setItems((prev) => prev.filter((f) => f._id !== item._id));
+      Swal.fire("Deleted!", "Item deleted successfully.", "success");
     } catch (err) {
-      alert(`Failed to delete item: ${err.message}`);
+      Swal.fire("Delete Failed", err.message, "error");
     }
   };
 
-  if (!user) {
-    return <p>Please log in to see your food items.</p>;
-  }
+  if (!user) return <p>Please log in to see your food items.</p>;
 
-  if (loading) {
-    return <p>Loading your items...</p>;
-  }
+  if (loading) return <p>Loading your items...</p>;
 
   if (items.length === 0) {
-    return <p>You have no food items. Add some!</p>;
+    return (
+      <div className="text-center mt-10">
+        <h2 className="text-2xl font-semibold mb-4">No Food Items Found</h2>
+        <p className="mb-4">You haven’t added any food items yet.</p>
+        <a
+          href="/add-food"
+          className="inline-block px-6 py-2 bg-pink-600 text-white rounded hover:bg-pink-700 transition"
+        >
+          Add Food Item
+        </a>
+      </div>
+    );
   }
 
   return (
@@ -236,6 +246,15 @@ const MyItems = () => {
                 placeholder="Image URL"
                 className="w-full px-3 py-2 border rounded"
               />
+              {formData.image && (
+                <div className="text-center">
+                  <img
+                    src={formData.image}
+                    alt="Preview"
+                    className="w-20 h-20 mx-auto rounded object-cover"
+                  />
+                </div>
+              )}
               <div className="flex justify-end space-x-3">
                 <button
                   type="button"
@@ -252,30 +271,6 @@ const MyItems = () => {
                 </button>
               </div>
             </form>
-          </div>
-        </div>
-      )}
-
-      {/* Delete Confirmation Modal */}
-      {showDeleteModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 w-full max-w-sm">
-            <h2 className="text-xl font-semibold mb-4">Confirm Delete</h2>
-            <p>Are you sure you want to delete "{selectedItem.name}"?</p>
-            <div className="mt-6 flex justify-end space-x-3">
-              <button
-                onClick={() => setShowDeleteModal(false)}
-                className="px-4 py-2 bg-gray-400 rounded hover:bg-gray-500"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleDeleteConfirm}
-                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
-              >
-                Delete
-              </button>
-            </div>
           </div>
         </div>
       )}
