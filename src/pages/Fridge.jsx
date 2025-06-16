@@ -34,8 +34,8 @@ const Fridge = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-12 bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-green-200 dark:border-green-700 transition-colors duration-300">
-      <h2 className="text-4xl font-extrabold text-center text-green-700 dark:text-green-400 mb-10 drop-shadow-md">
-        🧊 My Fridge
+      <h2 className="text-4xl font-extrabold text-center bg-gradient-text bg-gradient-text mb-10 drop-shadow-md">
+         My Fridge
       </h2>
 
       {/* Search + Filter UI */}

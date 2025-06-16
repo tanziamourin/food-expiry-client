@@ -3,6 +3,16 @@
 
 
 /* input css */
+.bg-gradient-text {
+  background: linear-gradient(90deg, #22c55e, #84cc16); /* from green-500 (#22c55e) to lime-500 (#84cc16) */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+.bg-gradient{
+   background: linear-gradient(90deg, #22c55e, #84cc16);
+}
 .custom-input {
   @apply w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500;
 }
