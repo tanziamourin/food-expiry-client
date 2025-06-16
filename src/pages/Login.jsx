@@ -4,6 +4,13 @@ import toast from "react-hot-toast";
 import { AuthContext } from "../contexts/AuthContext";
 
 const Login = () => {
+
+
+   useEffect(() => {
+      document.title = "Login | FoodTrack";
+    }, []);
+
+
   const { login, githubLogin } = useContext(AuthContext);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const navigate = useNavigate();

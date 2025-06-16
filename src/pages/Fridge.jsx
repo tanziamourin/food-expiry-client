@@ -7,6 +7,12 @@ const Fridge = () => {
   const [searchText, setSearchText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
 
+
+   useEffect(() => {
+      document.title = "Fridge | FoodTrack";
+    }, []);
+
+
   useEffect(() => {
     const fetchFoods = async () => {
       let query = `http://localhost:5000/foods?search=${searchText}`;

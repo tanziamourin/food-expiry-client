@@ -6,6 +6,12 @@ const MyItems = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  
+   useEffect(() => {
+      document.title = "MyItems | FoodTrack";
+    }, []);
+
+
   // Modal state
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);

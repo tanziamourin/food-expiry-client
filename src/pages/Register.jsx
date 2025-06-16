@@ -15,7 +15,7 @@ const Register = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    document.title = "Register | Food Expiry Tracker";
+    document.title = "Register | Food Track";
   }, []);
 
   const handleChange = (e) => {

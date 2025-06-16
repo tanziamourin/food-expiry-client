@@ -11,6 +11,12 @@ const FoodDetails = () => {
   const [allNotes, setAllNotes] = useState([]);
   const [user] = useAuthState(auth);
 
+  
+   useEffect(() => {
+      document.title = "FoodDetails | FoodTrack";
+    }, []);
+
+
   useEffect(() => {
     fetch(`http://localhost:5000/foods/${id}`)
       .then((res) => res.json())

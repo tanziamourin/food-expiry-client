@@ -5,7 +5,7 @@ import Lottie from "lottie-react";
 
 const NotFound = () => {
   useEffect(() => {
-    document.title = "NotFound | JobTrack";
+    document.title = "NotFound | FoodTrack";
   }, []);
 
   return (
