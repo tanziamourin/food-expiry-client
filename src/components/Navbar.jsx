@@ -89,7 +89,7 @@ const Navbar = () => {
           <ThemeToggle />
           {user && (
             <>
-              <div className="relative group">
+              <NavLink to={'my-profile'} className="relative group">
                 <img
                   src={user.photoURL || "/default-avatar.png"}
                   alt="User"
@@ -98,7 +98,7 @@ const Navbar = () => {
                 <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-1 hidden group-hover:block text-sm bg-gray-800 text-white px-3 py-1 rounded shadow-lg transition duration-300">
                   {user.displayName}
                 </div>
-              </div>
+              </NavLink>
               <button
                 onClick={handleLogout}
                 className="text-sm text-red-600 hover:text-red-800 flex items-center gap-1 font-semibold"

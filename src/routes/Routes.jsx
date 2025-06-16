@@ -12,6 +12,7 @@ import MyItems from "../pages/private/MyItems";
 import PrivateRoute from "./PrivateRoute";
 import Fridge from "../pages/Fridge";
 import FoodDetails from "../pages/private/FoodDetails";
+import MyProfile from "../pages/private/MyProfile";
 // import PrivateRoute from "../components/PrivateRoute";
 
 const router = createBrowserRouter([
@@ -60,6 +61,14 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+        {
+        path : '/my-profile',
+        element : (
+          <PrivateRoute>
+            <MyProfile></MyProfile>
+          </PrivateRoute>
+        )
+      }
     ],
   },
 ]);
