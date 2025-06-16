@@ -2,6 +2,8 @@ import React from 'react';
 import NearlyExpiry from '../components/NearlyExpiry';
 
 import HeroBannerLottie from './HeroBannerLottie';
+import AwarenessSection from '../components/AwarenessSection';
+
 
 const Home = () => {
     return (
@@ -9,6 +11,8 @@ const Home = () => {
             {/* <Banner></Banner> */}
             <HeroBannerLottie></HeroBannerLottie>
             <NearlyExpiry></NearlyExpiry>
+            <AwarenessSection></AwarenessSection>
+            
         </div>
     );
 };
