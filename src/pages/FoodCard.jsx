@@ -7,12 +7,12 @@ const FoodCard = ({ item, onSeeDetails }) => {
   const isExpired = new Date(expiryDate) < new Date();
 
   return (
-    <div className="bg-green-50 dark:bg-green-900 border border-green-300 dark:border-green-700 rounded-2xl shadow-md p-5 flex flex-col justify-between">
+    <div className="bg-green-50 dark:bg-green-900 border border-green-300 dark:border-green-700 rounded-2xl shadow-md p-4 flex flex-col justify-between">
       {/* Food Image */}
       <img
         src={image}
         alt={title}
-        className="rounded-xl w-full h-40 object-cover mb-4"
+        className="rounded-sm w-full h-50 object-cover mb-4"
         loading="lazy"
       />
 
@@ -31,7 +31,7 @@ const FoodCard = ({ item, onSeeDetails }) => {
 
       {/* Expired Badge */}
       {isExpired && (
-        <span className="inline-block mb-3 px-3 py-1 bg-red-600 text-white rounded-full font-semibold">
+        <span className="inline-block mb-3 px-3 py-1 bg-red-600 w-25 text-white text-sm  rounded-full font-semibold">
           Expired
         </span>
       )}
@@ -39,7 +39,7 @@ const FoodCard = ({ item, onSeeDetails }) => {
       {/* See Details Button */}
       <button
         onClick={() => onSeeDetails(_id)}
-        className="mt-auto py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold shadow-sm transition"
+        className="mt-auto bg-gradient-to-r from-green-500 to-lime-500 hover:from-lime-500 hover:to-green-500 text-white font-semibold rounded-md px-4 py-2 transition"
       >
         See Details
       </button>
