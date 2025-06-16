@@ -23,53 +23,60 @@ const Fridge = () => {
     fetchFoods();
   }, [searchText, selectedCategory]);
 
-  const handleDelete = async (id) => {
-    const confirmed = window.confirm("Are you sure you want to delete this item?");
-    if (confirmed) {
-      const res = await fetch(`http://localhost:5000/foods/${id}`, {
-        method: "DELETE",
-      });
-      const result = await res.json();
-      if (result.deletedCount > 0) {
-        setFoodItems(prev => prev.filter(item => item._id !== id));
-      }
-    }
+  // Removed handleDelete function
+
+  // Example placeholder for SeeDetails function - you can implement as needed
+  const handleSeeDetails = (id) => {
+    // For example, navigate to details page:
+    // navigate(`/foods/${id}`);
+    console.log("See details for", id);
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <h2 className="text-3xl font-bold text-center mb-6 text-green-600">🧊 My Fridge</h2>
+    <div className="max-w-7xl mx-auto px-6 py-12 bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-green-200 dark:border-green-700 transition-colors duration-300">
+      <h2 className="text-4xl font-extrabold text-center text-green-700 dark:text-green-400 mb-10 drop-shadow-md">
+        🧊 My Fridge
+      </h2>
 
       {/* Search + Filter UI */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-5 mb-10">
         <input
           type="text"
           placeholder="Search by title or category..."
-          className="input input-bordered w-full md:w-1/2"
+          className="w-full md:w-1/2 px-5 py-3 rounded-xl border border-green-300 dark:border-green-700 bg-green-50 dark:bg-green-900 text-green-900 dark:text-green-200 placeholder-green-500 dark:placeholder-green-400 focus:outline-none focus:ring-4 focus:ring-green-400 transition-shadow duration-300 shadow-sm hover:shadow-md"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
         <select
-          className="select select-bordered w-full md:w-1/3"
+          className="w-full md:w-1/3 px-5 py-3 rounded-xl border border-green-300 dark:border-green-700 bg-green-50 dark:bg-green-900 text-green-900 dark:text-green-200 focus:outline-none focus:ring-4 focus:ring-green-400 transition-shadow duration-300 shadow-sm hover:shadow-md"
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
           <option value="">All Categories</option>
-          <option value="Dairy">Dairy</option>
-          <option value="Meat">Meat</option>
-          <option value="Vegetables">Vegetables</option>
-          <option value="Snacks">Snacks</option>
+          <option value="Dairy">Dairy 🥛</option>
+          <option value="Meat">Meat 🍖</option>
+          <option value="Vegetables">Vegetables 🥦</option>
+          <option value="Snacks">Snacks 🍪</option>
         </select>
       </div>
 
       {loading ? (
-        <div className="text-center mt-10 text-lg">Loading...</div>
+        <div className="text-center mt-20 text-xl text-green-600 dark:text-green-400 font-semibold animate-pulse">
+          Loading your fridge items...
+        </div>
       ) : foodItems.length === 0 ? (
-        <p className="text-center text-gray-500">No food items found.</p>
+        <p className="text-center text-gray-500 dark:text-gray-400 italic text-lg">
+          No food items found.
+        </p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {foodItems.map((item) => (
-            <FoodCard key={item._id} item={item} onDelete={handleDelete} />
+            <FoodCard
+              key={item._id}
+              item={item}
+              onSeeDetails={handleSeeDetails}
+              className="hover:scale-[1.03] transition-transform duration-300"
+            />
           ))}
         </div>
       )}

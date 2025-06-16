@@ -1,17 +1,47 @@
-const FoodCard = ({ item, onDelete }) => {
-  const { _id, name, quantity, storage, expiryDate } = item;
+import React from "react";
+
+const FoodCard = ({ item, onSeeDetails }) => {
+  const { _id, title, image, category, quantity, expiryDate } = item;
+
+  // Check if expired
+  const isExpired = new Date(expiryDate) < new Date();
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 relative">
-      <h3 className="text-xl font-semibold text-green-600 mb-1">{name}</h3>
-      <p className="text-sm text-gray-600 dark:text-gray-300">Quantity: {quantity}</p>
-      <p className="text-sm text-gray-600 dark:text-gray-300">Storage: {storage}</p>
-      <p className="text-sm text-red-500 mt-2">Expires on: {expiryDate}</p>
+    <div className="bg-green-50 dark:bg-green-900 border border-green-300 dark:border-green-700 rounded-2xl shadow-md p-5 flex flex-col justify-between">
+      {/* Food Image */}
+      <img
+        src={image}
+        alt={title}
+        className="rounded-xl w-full h-40 object-cover mb-4"
+        loading="lazy"
+      />
+
+      {/* Title */}
+      <h3 className="text-xl font-semibold text-green-900 dark:text-green-200 mb-2">
+        {title}
+      </h3>
+
+      {/* Category */}
+      <p className="text-green-800 dark:text-green-300 mb-1">Category: {category}</p>
+
+      {/* Quantity */}
+      <p className="text-green-700 dark:text-green-400 font-medium mb-3">
+        Quantity: {quantity}
+      </p>
+
+      {/* Expired Badge */}
+      {isExpired && (
+        <span className="inline-block mb-3 px-3 py-1 bg-red-600 text-white rounded-full font-semibold">
+          Expired
+        </span>
+      )}
+
+      {/* See Details Button */}
       <button
-        onClick={() => onDelete(_id)}
-        className="mt-4 inline-block bg-red-500 hover:bg-red-600 text-white text-sm px-4 py-2 rounded transition duration-300"
+        onClick={() => onSeeDetails(_id)}
+        className="mt-auto py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold shadow-sm transition"
       >
-        Delete
+        See Details
       </button>
     </div>
   );
