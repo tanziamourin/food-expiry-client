@@ -1,9 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-// import auth from "../../firebase.config"; // update path as needed
-import toast from "react-hot-toast";
 import { auth } from "../../firebase.config";
+import toast from "react-hot-toast";
 
 const FoodDetails = () => {
   const { id } = useParams();
@@ -39,11 +38,14 @@ const FoodDetails = () => {
     if (result.insertedId) {
       toast.success("Note added");
       setNote("");
-      setAllNotes((prev) => [...prev, { text: note, createdAt: new Date(), authorEmail: user.email }]);
+      setAllNotes((prev) => [
+        ...prev,
+        { text: note, createdAt: new Date().toISOString(), authorEmail: user.email },
+      ]);
     }
   };
 
-  if (!food) return <p className="text-center mt-10">Loading...</p>;
+  if (!food) return <p className="text-center mt-10 text-gray-600 dark:text-gray-400">Loading...</p>;
 
   const isOwner = food.userEmail === user?.email;
 
@@ -61,64 +63,88 @@ const FoodDetails = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10">
-      <img
-        src={food.image}
-        alt={food.title}
-        className="w-full h-60 object-cover rounded"
-      />
-      <h2 className="text-3xl font-bold mt-4">{food.title}</h2>
-      <p className="text-gray-600 mt-2">Category: {food.category}</p>
-      <p className="text-gray-600">Quantity: {food.quantity}</p>
+    <div className="max-w-3xl mx-auto px-6 py-12 bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 transition-colors duration-300">
+      {/* Food Image */}
+      <div className="overflow-hidden rounded-xl shadow-md mb-6">
+        <img
+          src={food.image}
+          alt={food.title}
+          className="w-full h-64 object-cover transform hover:scale-105 transition-transform duration-500 ease-in-out"
+          loading="lazy"
+        />
+      </div>
 
+      {/* Title and Info */}
+      <h1 className="text-4xl font-extrabold text-green-700 dark:text-green-400 mb-3">{food.title}</h1>
+      <div className="flex flex-wrap gap-6 mb-6 text-gray-700 dark:text-gray-300">
+        <p className="bg-green-100 dark:bg-green-900 px-3 py-1 rounded-full font-semibold">
+          Category: {food.category}
+        </p>
+        <p className="bg-lime-100 dark:bg-lime-900 px-3 py-1 rounded-full font-semibold">
+          Quantity: {food.quantity}
+        </p>
+      </div>
+
+      {/* Expiry Info */}
       <p
-        className={`text-sm font-medium mt-2 ${
+        className={`text-lg font-semibold mb-6 ${
           new Date(food.expiryDate) <= new Date(Date.now() + 2 * 86400000)
-            ? "text-red-700"
-            : "text-orange-500"
+            ? "text-red-600 dark:text-red-400"
+            : "text-orange-500 dark:text-orange-400"
         }`}
       >
-        Expiry Date: {new Date(food.expiryDate).toLocaleDateString()} ({getCountdown()})
+        Expiry Date:{" "}
+        <span className="underline decoration-green-500 decoration-2">
+          {new Date(food.expiryDate).toLocaleDateString()}
+        </span>{" "}
+        — <span className="italic">{getCountdown()}</span>
       </p>
 
-      <div className="mt-6">
-        <h3 className="text-xl font-semibold mb-2">Add Note:</h3>
+      {/* Notes Section */}
+      <section>
+        <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Add Note</h2>
         <textarea
-          rows={4}
-          className="w-full border rounded p-2"
-          placeholder="Write your note..."
+          rows={5}
+          placeholder={isOwner ? "Write your note here..." : "Only owner can add notes"}
           value={note}
           onChange={(e) => setNote(e.target.value)}
           disabled={!isOwner}
+          className="w-full border border-gray-300 dark:border-gray-700 rounded-lg p-3 resize-none bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-green-400 transition"
         />
         <button
           onClick={handleAddNote}
           disabled={!isOwner}
-          className={`mt-2 px-4 py-2 rounded ${
+          className={`mt-4 px-6 py-2 rounded-lg font-semibold shadow-md transition-colors duration-300 ${
             isOwner
-              ? "bg-green-600 hover:bg-green-700 text-white"
-              : "bg-gray-400 text-white cursor-not-allowed"
+              ? "bg-gradient-to-r from-green-600 to-lime-500 hover:from-lime-500 hover:to-green-600 text-white"
+              : "bg-gray-400 cursor-not-allowed text-gray-100"
           }`}
         >
           Add Note
         </button>
-      </div>
+      </section>
 
-      <div className="mt-6">
-        <h3 className="text-xl font-semibold mb-2">Notes:</h3>
+      <section className="mt-10">
+        <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Notes</h2>
         {allNotes.length === 0 ? (
-          <p className="text-gray-500">No notes yet.</p>
+          <p className="text-gray-500 dark:text-gray-400 italic">No notes yet.</p>
         ) : (
-          allNotes.map((n, i) => (
-            <div key={i} className="border p-3 rounded mb-2 bg-gray-50">
-              <p className="text-gray-800">{n.text}</p>
-              <p className="text-sm text-gray-500 mt-1">
-                By: {n.authorEmail} on {new Date(n.createdAt).toLocaleString()}
-              </p>
-            </div>
-          ))
+          <div className="space-y-4 max-h-96 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-green-400 scrollbar-track-gray-200 dark:scrollbar-thumb-green-600 dark:scrollbar-track-gray-700">
+            {allNotes.map((n, i) => (
+              <div
+                key={i}
+                className="bg-green-50 dark:bg-green-900 border border-green-300 dark:border-green-700 rounded-lg p-4 shadow-sm"
+              >
+                <p className="text-gray-900 dark:text-green-200 font-medium">{n.text}</p>
+                <p className="text-sm text-gray-600 dark:text-green-400 mt-2 select-text break-words">
+                  By: <span className="font-semibold">{n.authorEmail}</span> on{" "}
+                  {new Date(n.createdAt).toLocaleString()}
+                </p>
+              </div>
+            ))}
+          </div>
         )}
-      </div>
+      </section>
     </div>
   );
 };
