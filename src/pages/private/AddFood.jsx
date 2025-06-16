@@ -65,6 +65,7 @@ const AddFood = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: 'include',
         body: JSON.stringify(newFood),
       });
 
