@@ -1,6 +1,6 @@
 import React from "react";
 import Lottie from "lottie-react";
-import wasteAnimation from "../assets//food-waste"; // You need to download a JSON animation
+import wasteAnimation from "../assets//food-waste";
 import CountUp from "react-countup";
 import { motion } from "framer-motion";
 
@@ -23,8 +23,8 @@ const AwarenessSection = () => {
             Why Track Your Food?
           </h2>
           <p className="text-lg text-green-700 dark:text-green-300 mb-6">
-            Every year, <strong>1.3 billion tons</strong> of food is wasted globally.
-            With this app, you're helping reduce that!
+            Every year, <strong>1.3 billion tons</strong> of food is wasted
+            globally. With this app, you're helping reduce that!
           </p>
 
           <div className="space-y-4">
@@ -44,7 +44,9 @@ const StatItem = ({ label, value }) => {
       className="bg-white dark:bg-green-800 p-4 rounded-xl shadow-md flex justify-between items-center"
       whileHover={{ scale: 1.05 }}
     >
-      <span className="text-lg font-semibold text-green-800 dark:text-green-200">{label}</span>
+      <span className="text-lg font-semibold text-green-800 dark:text-green-200">
+        {label}
+      </span>
       <span className="text-2xl font-bold text-green-700 dark:text-green-100">
         <CountUp end={value} duration={2.5} />
       </span>

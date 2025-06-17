@@ -1,8 +1,8 @@
 import React from "react";
-import { useNavigate } from "react-router-dom"; // also fix: from "react-router" ➜ "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 const FoodCard = ({ item }) => {
-  const navigate = useNavigate(); // ✅ Move here
+  const navigate = useNavigate();
 
   const { _id, title, image, category, quantity, expiryDate } = item;
 
@@ -21,7 +21,9 @@ const FoodCard = ({ item }) => {
         {title}
       </h3>
 
-      <p className="text-green-800 dark:text-green-300 mb-1">Category: {category}</p>
+      <p className="text-green-800 dark:text-green-300 mb-1">
+        Category: {category}
+      </p>
 
       <p className="text-green-700 dark:text-green-400 font-medium mb-3">
         Quantity: {quantity}

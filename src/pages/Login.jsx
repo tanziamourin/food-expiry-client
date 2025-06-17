@@ -2,14 +2,13 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { AuthContext } from "../contexts/AuthContext";
+import loginAnimation from "../assets//login.json";
+import Lottie from "lottie-react";
 
 const Login = () => {
-
-
-   useEffect(() => {
-      document.title = "Login | FoodTrack";
-    }, []);
-
+  useEffect(() => {
+    document.title = "Login | FoodTrack";
+  }, []);
 
   const { login, githubLogin } = useContext(AuthContext);
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -23,6 +22,7 @@ const Login = () => {
     e.preventDefault();
     try {
       await login(formData.email, formData.password);
+
       toast.success("Login successful");
       navigate("/");
     } catch (err) {
@@ -50,23 +50,22 @@ const Login = () => {
 
   return (
     <section className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-[#f3fff5] to-[#e5fbe0] px-4">
-      <div className="w-full max-w-5xl bg-white shadow-2xl rounded-2xl overflow-hidden flex flex-col-reverse md:flex-row transition duration-300 border border-lime-200">
+      <div className="w-full max-w-5xl bg-white dark:bg-black shadow-2xl rounded-2xl overflow-hidden flex flex-col-reverse md:flex-row transition duration-300 border border-lime-200">
         {/* Left Panel */}
         <div className="w-full md:w-1/2 p-8 flex flex-col justify-center bg-gradient-to-br from-green-500 via-lime-500 to-lime-600 text-white">
           <h2 className="text-4xl font-extrabold mb-4">Welcome Back</h2>
           <p className="text-sm leading-relaxed">
-            Track your food. Stay fresh. Reduce waste. Log in to continue managing your fridge smartly.
+            Track your food. Stay fresh. Reduce waste. Log in to continue
+            managing your fridge smartly.
           </p>
-          <img
-            src="https://i.ibb.co/VYqkDmy/fridge-illustration.png"
-            alt="hobby"
-            className="mt-6 w-full max-w-xs mx-auto"
-          />
+          <Lottie animationData={loginAnimation} loop={true} />
         </div>
 
         {/* Right Panel - Login Form */}
         <div className="w-full md:w-1/2 p-8 sm:p-12">
-          <h3 className="text-3xl font-bold text-center text-lime-600 mb-6">Login to Your Account</h3>
+          <h3 className="text-3xl font-bold text-center text-green-800 dark:text-green-200 mb-6">
+            Login to Your Account
+          </h3>
 
           <form onSubmit={handleLogin} className="space-y-4">
             <input
@@ -114,7 +113,10 @@ const Login = () => {
 
           <p className="mt-6 text-center text-sm text-gray-600">
             Don’t have an account?{" "}
-            <Link to="/register" className="text-lime-600 font-semibold hover:underline">
+            <Link
+              to="/register"
+              className="text-lime-600 font-semibold hover:underline"
+            >
               Register here
             </Link>
           </p>

@@ -35,7 +35,7 @@ const Register = () => {
     }
 
     try {
-      await createUser(email, password, name, photo); // createUser now handles profile update
+      await createUser(email, password, name, photo);
       toast.success("Registration successful!");
       navigate("/");
     } catch (err) {
@@ -44,8 +44,8 @@ const Register = () => {
   };
 
   return (
-    <section className="flex justify-center items-center min-h-[80vh] px-4 my-10">
-      <div className="rounded-3xl overflow-hidden max-w-4xl w-full flex flex-col md:flex-row bg-base border-b-lime-400 shadow-2xl shadow-lime-400 transition duration-300">
+    <section className="flex justify-center items-center min-h-screen px-4  bg-gradient-to-tr from-[#f3fff5] to-[#e5fbe0]">
+      <div className="rounded-3xl overflow-hidden max-w-4xl w-full flex flex-col md:flex-row bg-white dark:bg-black  border-b-lime-400 shadow-2xl shadow-lime-400 transition duration-300 my-16">
         {/* Left Panel */}
         <div className="hidden md:flex flex-col justify-center items-center w-1/2 bg-gradient-to-br from-green-500 to-lime-600 text-white p-8">
           <h2 className="text-4xl font-bold mb-4">Food Expiry Tracker</h2>
@@ -61,7 +61,7 @@ const Register = () => {
 
         {/* Right Panel - Register Form */}
         <div className="p-10 w-full md:w-1/2">
-          <h2 className="text-3xl font-extrabold text-center mb-6">
+          <h2 className="text-4xl font-extrabold text-green-800 dark:text-green-200 text-center mb-6">
             Create Account
           </h2>
           <form onSubmit={handleRegister} className="space-y-4">
@@ -132,7 +132,10 @@ const Register = () => {
 
           <p className="text-center mt-6 text-sm">
             Already have an account?{" "}
-            <Link to="/login" className="font-medium text-green-600 hover:underline">
+            <Link
+              to="/login"
+              className="font-medium text-green-600 hover:underline"
+            >
               Login here
             </Link>
           </p>

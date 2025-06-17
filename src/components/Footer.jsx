@@ -21,21 +21,42 @@ const Footer = () => {
             </h2>
           </Link>
           <p className="text-sm leading-relaxed">
-            FoodTrack helps you track, manage, and avoid waste by keeping an eye on your food expiry dates. Smart. Simple. Sustainable.
+            FoodTrack helps you track, manage, and avoid waste by keeping an eye
+            on your food expiry dates. Smart. Simple. Sustainable.
           </p>
 
           {/* Social Icons */}
           <div className="flex space-x-4 mt-4">
-            <a href="https://facebook.com" target="_blank" rel="noreferrer" className="hover:text-green-300 text-xl">
+            <a
+              href="https://facebook.com"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-green-300 text-xl"
+            >
               <FaFacebookF />
             </a>
-            <a href="https://twitter.com" target="_blank" rel="noreferrer" className="hover:text-green-300 text-xl">
+            <a
+              href="https://twitter.com"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-green-300 text-xl"
+            >
               <FaTwitter />
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-green-300 text-xl">
+            <a
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-green-300 text-xl"
+            >
               <FaLinkedinIn />
             </a>
-            <a href="https://github.com" target="_blank" rel="noreferrer" className="hover:text-green-300 text-xl">
+            <a
+              href="https://github.com"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-green-300 text-xl"
+            >
               <FaGithub />
             </a>
           </div>
@@ -45,10 +66,21 @@ const Footer = () => {
         <div>
           <h3 className="text-lg font-semibold mb-3">Links</h3>
           <ul className="space-y-2 text-sm">
-            <li><Link to="/" onClick={scrollToTop} className="hover:underline">Home</Link></li>
-            <li><Link to="/my-items" className="hover:underline">My Items</Link></li>
-            <li><Link to="/add-food" className="hover:underline">Add Food</Link></li>
-         
+            <li>
+              <Link to="/" onClick={scrollToTop} className="hover:underline">
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link to="/my-items" className="hover:underline">
+                My Items
+              </Link>
+            </li>
+            <li>
+              <Link to="/add-food" className="hover:underline">
+                Add Food
+              </Link>
+            </li>
           </ul>
         </div>
 

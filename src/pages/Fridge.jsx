@@ -7,11 +7,9 @@ const Fridge = () => {
   const [searchText, setSearchText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
 
-
-   useEffect(() => {
-      document.title = "Fridge | FoodTrack";
-    }, []);
-
+  useEffect(() => {
+    document.title = "Fridge | FoodTrack";
+  }, []);
 
   useEffect(() => {
     const fetchFoods = async () => {
@@ -29,23 +27,19 @@ const Fridge = () => {
     fetchFoods();
   }, [searchText, selectedCategory]);
 
-  // Removed handleDelete function
-
-  // Example placeholder for SeeDetails function - you can implement as needed
   const handleSeeDetails = (id) => {
-    // For example, navigate to details page:
-    // navigate(`/foods/${id}`);
     console.log("See details for", id);
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-12 bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-green-200 dark:border-green-700 transition-colors duration-300">
+   <div className="  bg-gradient-to-tr from-[#f3fff5] to-[#e5fbe0]">
+     <div className="max-w-7xl  mx-auto px-6 py-12 bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-green-200 dark:border-green-700 transition-colors duration-300">
       <h2 className="text-4xl font-extrabold text-center bg-gradient-text bg-gradient-text mb-10 drop-shadow-md">
-         My Fridge
+        My Fridge
       </h2>
 
       {/* Search + Filter UI */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-5 mb-10">
+      <div className="flex my-16 flex-col md:flex-row items-center justify-between gap-5 mb-10">
         <input
           type="text"
           placeholder="Search by title or category..."
@@ -87,6 +81,7 @@ const Fridge = () => {
         </div>
       )}
     </div>
+   </div>
   );
 };
 

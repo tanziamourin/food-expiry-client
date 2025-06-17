@@ -1,29 +1,23 @@
-import React, { useEffect } from 'react';
-import NearlyExpiry from '../components/NearlyExpiry';
+import React, { useEffect } from "react";
+import NearlyExpiry from "../components/NearlyExpiry";
 
-import HeroBannerLottie from './HeroBannerLottie';
-import AwarenessSection from '../components/AwarenessSection';
-import WasteStatsDashboard from '../components/WasteStatsDashboard';
-
-
-
+import HeroBannerLottie from "./HeroBannerLottie";
+import AwarenessSection from "../components/AwarenessSection";
+import WasteStatsDashboard from "../components/WasteStatsDashboard";
 
 const Home = () => {
-    
-   useEffect(() => {
-      document.title = "Home | FoodTrack";
-    }, []);
+  useEffect(() => {
+    document.title = "Home | FoodTrack";
+  }, []);
 
-    return (
-        <div>
-            {/* <Banner></Banner> */}
-            <HeroBannerLottie></HeroBannerLottie>
-            <NearlyExpiry></NearlyExpiry>
-            <AwarenessSection></AwarenessSection>
-            <WasteStatsDashboard></WasteStatsDashboard>
-            
-        </div>
-    );
+  return (
+    <div>
+      <HeroBannerLottie></HeroBannerLottie>
+      <NearlyExpiry></NearlyExpiry>
+      <AwarenessSection></AwarenessSection>
+      <WasteStatsDashboard></WasteStatsDashboard>
+    </div>
+  );
 };
 
 export default Home;

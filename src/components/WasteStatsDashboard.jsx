@@ -26,9 +26,18 @@ const data = [
 ];
 
 const gradientColors = [
-  "#f97316", "#facc15", "#4ade80", "#38bdf8", "#8b5cf6",
-  "#f472b6", "#34d399", "#60a5fa", "#c084fc", "#fb923c",
-  "#22d3ee", "#f43f5e"
+  "#f97316",
+  "#facc15",
+  "#4ade80",
+  "#38bdf8",
+  "#8b5cf6",
+  "#f472b6",
+  "#34d399",
+  "#60a5fa",
+  "#c084fc",
+  "#fb923c",
+  "#22d3ee",
+  "#f43f5e",
 ];
 
 const WasteStatsDashboard = () => {
@@ -38,17 +47,23 @@ const WasteStatsDashboard = () => {
         Growth Chart
       </h2>
 
-      {/* Growth arrow and star */}
-     
+      {/* Growth arrow  */}
+
       <ResponsiveContainer width="100%" height={250}>
-        <BarChart data={data} margin={{ top: 30, right: 20, left: 0, bottom: 10 }}>
+        <BarChart
+          data={data}
+          margin={{ top: 30, right: 20, left: 0, bottom: 10 }}
+        >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis hide />
           <Tooltip />
           <Bar dataKey="value" barSize={40} radius={[10, 10, 0, 0]}>
             {data.map((_, index) => (
-              <Cell key={`cell-${index}`} fill={gradientColors[index % gradientColors.length]} />
+              <Cell
+                key={`cell-${index}`}
+                fill={gradientColors[index % gradientColors.length]}
+              />
             ))}
           </Bar>
         </BarChart>

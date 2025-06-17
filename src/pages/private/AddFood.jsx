@@ -38,63 +38,67 @@ const AddFood = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (!formData.image || !formData.title || !formData.category || !formData.expiryDate) {
-      toast.error("Please fill in all required fields.");
-      return;
-    }
+  if (!user?.email) {
+    toast.error("You must be logged in to add food.");
+    return;
+  }
 
-    setLoading(true);
+  if (!formData.image || !formData.title || !formData.category || !formData.expiryDate) {
+    toast.error("Please fill in all required fields.");
+    return;
+  }
 
-    const newFood = {
-      image: formData.image,
-      title: formData.title,
-      category: formData.category,
-      quantity: Number(formData.quantity),
-      expiryDate: formData.expiryDate,
-      description: formData.description,
-      addedDate: new Date().toISOString(),
-      userEmail: user.email,
-    };
+  setLoading(true);
 
-    try {
-      const res = await fetch("http://localhost:5000/foods", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: 'include',
-        body: JSON.stringify(newFood),
+  const newFood = {
+    image: formData.image,
+    title: formData.title,
+    category: formData.category,
+    quantity: Number(formData.quantity),
+    expiryDate: formData.expiryDate,
+    description: formData.description,
+    addedDate: new Date().toISOString(),
+    userEmail: user.email,
+  };
+
+  try {
+    const res = await fetch("http://localhost:5000/foods", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(newFood),
+    });
+
+    if (res.ok) {
+      toast.success("Food item added successfully!");
+      setFormData({
+        image: "",
+        title: "",
+        category: "",
+        quantity: 1,
+        expiryDate: "",
+        description: "",
       });
 
-      if (res.ok) {
-        toast.success("Food item added successfully!");
-
-        setFormData({
-          image: "",
-          title: "",
-          category: "",
-          quantity: 1,
-          expiryDate: "",
-          description: "",
-        });
-
-        setTimeout(() => {
-          navigate("/my-items");
-        }, 1200);
-      } else {
-        const errorData = await res.json();
-        toast.error("Failed to add food: " + errorData.error);
-      }
-    } catch (err) {
-      console.error(err);
-      toast.error("An error occurred. Please try again.");
-    } finally {
-      setLoading(false);
+      setTimeout(() => {
+        navigate("/my-items");
+      }, 1200);
+    } else {
+      const errorData = await res.json();
+      toast.error("Failed to add food: " + errorData.error);
     }
-  };
+  } catch (err) {
+    console.error(err);
+    toast.error("An error occurred. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="max-w-xl mx-auto p-8 rounded-xl shadow-lg bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900 dark:to-green-800 transition-colors duration-500 mt-10">

@@ -1,4 +1,3 @@
-// src/components/ExpiryCountdown.jsx
 import PropTypes from "prop-types";
 
 const ExpiryCountdown = ({ expiryDate }) => {

@@ -1,16 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import Swal from "sweetalert2";
+import { useLocation } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const MyItems = () => {
-  const { user } = useContext(AuthContext);
+  const { user, getJWT } = useContext(AuthContext);
+  const location = useLocation();
+
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    document.title = "MyItems | FoodTrack";
-  }, []);
-
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [formData, setFormData] = useState({
@@ -22,11 +21,34 @@ const MyItems = () => {
   });
 
   useEffect(() => {
-    if (!user) return;
+    document.title = "MyItems | FoodTrack";
+  }, []);
 
-    const fetchMyFoods = async () => {
+  // ✅ Show toast if redirected after adding
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get("added") === "true") {
+      toast.success("Food added successfully!");
+    }
+  }, [location.search]);
+
+  // ✅ Fetch food items
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!user) return;
+
+      const success = await getJWT(user.email);
+      if (!success) {
+        setLoading(false);
+        return;
+      }
+
       try {
-        const res = await fetch(`http://localhost:5000/myfoods?email=${user.email}`);
+        const res = await fetch(`http://localhost:5000/myfoods?email=${user.email}`, {
+          method: "GET",
+          credentials: "include",
+        });
+
         if (res.ok) {
           const data = await res.json();
           setItems(data);
@@ -41,8 +63,10 @@ const MyItems = () => {
       }
     };
 
-    fetchMyFoods();
-  }, [user]);
+    if (user) {
+      fetchData();
+    }
+  }, [user, getJWT, location.search]);
 
   const openUpdateModal = (item) => {
     setSelectedItem(item);
@@ -66,6 +90,7 @@ const MyItems = () => {
       const res = await fetch(`http://localhost:5000/foods/${selectedItem._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify(formData),
       });
 
@@ -107,6 +132,7 @@ const MyItems = () => {
     try {
       const res = await fetch(`http://localhost:5000/foods/${item._id}`, {
         method: "DELETE",
+        credentials: "include",
       });
 
       if (!res.ok) {

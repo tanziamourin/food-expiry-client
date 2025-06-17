@@ -17,41 +17,89 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Renamed to createUser to match Register.jsx usage
+  //  JWT fetch and set to cookie
+  const getJWT = async (email) => {
+    try {
+      const res = await fetch("http://localhost:5000/jwt", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ email }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to set JWT token");
+      }
+
+      console.log(" JWT token set in cookie");
+      return true;
+    } catch (error) {
+      console.error("Error getting JWT:", error.message);
+    }
+  };
+
+  //  Create User
   const createUser = async (email, password, name, photo) => {
     setLoading(true);
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
     await updateProfile(auth.currentUser, {
       displayName: name,
       photoURL: photo,
     });
     await refreshUser();
+    await getJWT(email);
     setLoading(false);
     return userCredential;
   };
 
-  const login = (email, password) => {
+  //  Email/Password Login
+  const login = async (email, password) => {
     setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password);
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    await getJWT(email);
+    setLoading(false);
+    return userCredential;
   };
 
-  const googleLogin = () => {
+  //  Google Login
+  const googleLogin = async () => {
     setLoading(true);
     const provider = new GoogleAuthProvider();
-    return signInWithPopup(auth, provider);
+    const result = await signInWithPopup(auth, provider);
+    await getJWT(result.user.email);
+    setLoading(false);
+    return result;
   };
 
-  const githubLogin = () => {
+  //  GitHub Login
+  const githubLogin = async () => {
     setLoading(true);
     const provider = new GithubAuthProvider();
-    return signInWithPopup(auth, provider);
+    const result = await signInWithPopup(auth, provider);
+    await getJWT(result.user.email);
+    return result;
   };
 
+  //  Logout
   const logout = () => {
     setLoading(true);
-    return signOut(auth);
+    return signOut(auth).then(() => {
+      setUser(null);
+      setLoading(false);
+    });
   };
 
+  //  Update Firebase profile
   const updateUserProfile = async (displayName, photoURL) => {
     try {
       await updateProfile(auth.currentUser, { displayName, photoURL });
@@ -61,12 +109,14 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  //  Refresh Current User
   const refreshUser = async () => {
     const currentUser = auth.currentUser;
     await currentUser?.reload();
     setUser(auth.currentUser);
   };
 
+  //  Check on page load
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -87,6 +137,7 @@ const AuthProvider = ({ children }) => {
         logout,
         refreshUser,
         updateUserProfile,
+        getJWT,
       }}
     >
       {children}

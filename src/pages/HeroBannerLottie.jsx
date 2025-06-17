@@ -8,12 +8,11 @@ import leafAnimation from "../assets/leaf.json";
 import fruitAnimation from "../assets/fruit.json";
 import timerAnimation from "../assets/timer.json";
 
-
-
 const slides = [
   {
     id: 1,
-    image:"https://images.unsplash.com/photo-1673238104397-c287ff54a115?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image:
+      "https://images.unsplash.com/photo-1673238104397-c287ff54a115?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     title: "Natural 100%",
     animation: leafAnimation,
     buttonText: "Track Now",
@@ -21,7 +20,8 @@ const slides = [
   },
   {
     id: 2,
-    image: "https://images.unsplash.com/photo-1613082589739-004c07170907?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDkyfHx8ZW58MHx8fHx8",
+    image:
+      "https://images.unsplash.com/photo-1613082589739-004c07170907?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDkyfHx8ZW58MHx8fHx8",
     title: "Stay Fresh & Healthy",
     animation: fruitAnimation,
     buttonText: "Go to Fridge",
@@ -29,7 +29,8 @@ const slides = [
   },
   {
     id: 3,
-    image: "https://images.unsplash.com/photo-1611102130306-1b8dc8839cd1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDExNnx8fGVufDB8fHx8fA%3D%3D",
+    image:
+      "https://images.unsplash.com/photo-1611102130306-1b8dc8839cd1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDExNnx8fGVufDB8fHx8fA%3D%3D",
     title: "Track Expiry Smartly",
     animation: timerAnimation,
     buttonText: "See Details",
@@ -78,26 +79,25 @@ const HeroBannerLottie = () => {
           </motion.div>
 
           {/* Animated Title */}
- <motion.h1
-  initial={{ opacity: 0, y: 30, backgroundPosition: "0% 50%" }}
-  animate={{
-    opacity: 1,
-    y: 0,
-    backgroundPosition: "100% 50%",
-  }}
-  transition={{
-    delay: 0.3,
-    duration: 1,
-  }}
-  className="z-10 text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-green-900 dark:text-white mt-4 
+          <motion.h1
+            initial={{ opacity: 0, y: 30, backgroundPosition: "0% 50%" }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              backgroundPosition: "100% 50%",
+            }}
+            transition={{
+              delay: 0.3,
+              duration: 1,
+            }}
+            className="z-10 text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-green-900 dark:text-white mt-4 
              px-6 py-3 rounded-md shadow-xl
              bg-gradient-to-r from-green-400 via-lime-400 to-green-500
              bg-[length:200%_200%] animate-[bg-move_6s_linear_infinite] 
              backdrop-blur-lg bg-opacity-40"
->
-  {currentSlide.title}
-</motion.h1>
-
+          >
+            {currentSlide.title}
+          </motion.h1>
 
           {/* Animated Button with Link */}
           <motion.div

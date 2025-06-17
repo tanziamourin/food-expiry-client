@@ -11,11 +11,9 @@ const FoodDetails = () => {
   const [allNotes, setAllNotes] = useState([]);
   const [user] = useAuthState(auth);
 
-  
-   useEffect(() => {
-      document.title = "FoodDetails | FoodTrack";
-    }, []);
-
+  useEffect(() => {
+    document.title = "FoodDetails | FoodTrack";
+  }, []);
 
   useEffect(() => {
     fetch(`http://localhost:5000/foods/${id}`)
@@ -46,12 +44,21 @@ const FoodDetails = () => {
       setNote("");
       setAllNotes((prev) => [
         ...prev,
-        { text: note, createdAt: new Date().toISOString(), authorEmail: user.email },
+        {
+          text: note,
+          createdAt: new Date().toISOString(),
+          authorEmail: user.email,
+        },
       ]);
     }
   };
 
-  if (!food) return <p className="text-center mt-10 text-gray-600 dark:text-gray-400">Loading...</p>;
+  if (!food)
+    return (
+      <p className="text-center mt-10 text-gray-600 dark:text-gray-400">
+        Loading...
+      </p>
+    );
 
   const isOwner = food.userEmail === user?.email;
 
@@ -81,7 +88,9 @@ const FoodDetails = () => {
       </div>
 
       {/* Title and Info */}
-      <h1 className="text-4xl font-extrabold text-green-700 dark:text-green-400 mb-3">{food.title}</h1>
+      <h1 className="text-4xl font-extrabold text-green-700 dark:text-green-400 mb-3">
+        {food.title}
+      </h1>
       <div className="flex flex-wrap gap-6 mb-6 text-gray-700 dark:text-gray-300">
         <p className="bg-green-100 dark:bg-green-900 px-3 py-1 rounded-full font-semibold">
           Category: {food.category}
@@ -108,10 +117,14 @@ const FoodDetails = () => {
 
       {/* Notes Section */}
       <section>
-        <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Add Note</h2>
+        <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+          Add Note
+        </h2>
         <textarea
           rows={5}
-          placeholder={isOwner ? "Write your note here..." : "Only owner can add notes"}
+          placeholder={
+            isOwner ? "Write your note here..." : "Only owner can add notes"
+          }
           value={note}
           onChange={(e) => setNote(e.target.value)}
           disabled={!isOwner}
@@ -131,9 +144,13 @@ const FoodDetails = () => {
       </section>
 
       <section className="mt-10">
-        <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Notes</h2>
+        <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+          Notes
+        </h2>
         {allNotes.length === 0 ? (
-          <p className="text-gray-500 dark:text-gray-400 italic">No notes yet.</p>
+          <p className="text-gray-500 dark:text-gray-400 italic">
+            No notes yet.
+          </p>
         ) : (
           <div className="space-y-4 max-h-96 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-green-400 scrollbar-track-gray-200 dark:scrollbar-thumb-green-600 dark:scrollbar-track-gray-700">
             {allNotes.map((n, i) => (
@@ -141,7 +158,9 @@ const FoodDetails = () => {
                 key={i}
                 className="bg-green-50 dark:bg-green-900 border border-green-300 dark:border-green-700 rounded-lg p-4 shadow-sm"
               >
-                <p className="text-gray-900 dark:text-green-200 font-medium">{n.text}</p>
+                <p className="text-gray-900 dark:text-green-200 font-medium">
+                  {n.text}
+                </p>
                 <p className="text-sm text-gray-600 dark:text-green-400 mt-2 select-text break-words">
                   By: <span className="font-semibold">{n.authorEmail}</span> on{" "}
                   {new Date(n.createdAt).toLocaleString()}

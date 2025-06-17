@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { FaBars, FaTimes, FaSignOutAlt } from "react-icons/fa";
 import { AuthContext } from "../contexts/AuthContext";
-import ThemeToggle from "./ThemeToggle";
+
 import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
@@ -11,7 +11,7 @@ const Navbar = () => {
   const location = useLocation();
 
   useEffect(() => {
-    setIsOpen(false); // Close menu on route change
+    setIsOpen(false);
   }, [location]);
 
   const handleLogout = () => {
@@ -86,10 +86,10 @@ const Navbar = () => {
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-4">
           {navLinks}
-          <ThemeToggle />
+
           {user && (
             <>
-              <NavLink to={'my-profile'} className="relative group">
+              <NavLink to={"my-profile"} className="relative group">
                 <img
                   src={user.photoURL || "/default-avatar.png"}
                   alt="User"
@@ -133,34 +133,31 @@ const Navbar = () => {
                   />
                 </button>
               </div>
-              <div className="px-4 py-4 space-y-3">{navLinks}
-   {/* Theme Toggle & User Info */}
-              <div className="px-4">
-                <ThemeToggle />
-                {user && (
-                  
-                                  <div className="relative group space-y-4">
-                <img
-                  src={user.photoURL || "/default-avatar.png"}
-                  alt="User"
-                  className="w-10 h-10 rounded-full border-2 border-green-400 shadow-md"
-                />
-                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-1 hidden group-hover:block text-sm bg-gray-800 text-white px-3 py-1 rounded shadow-lg transition duration-300">
-                  {user.displayName}
-                </div>
-              
-                    <button
-                      onClick={handleLogout}
-                      className="text-red-600 hover:text-red-800 flex items-center gap-1 text-sm font-medium"
-                    >
-                      <FaSignOutAlt /> Logout
-                    </button>
-                  </div>
-                )}
-              </div>
-              </div>
+              <div className="px-4 py-4 space-y-3">
+                {navLinks}
+                {/*  User Info */}
+                <div className="px-4">
+                  {user && (
+                    <div className="relative group space-y-4">
+                      <img
+                        src={user.photoURL || "/default-avatar.png"}
+                        alt="User"
+                        className="w-10 h-10 rounded-full border-2 border-green-400 shadow-md"
+                      />
+                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-1 hidden group-hover:block text-sm bg-gray-800 text-white px-3 py-1 rounded shadow-lg transition duration-300">
+                        {user.displayName}
+                      </div>
 
-           
+                      <button
+                        onClick={handleLogout}
+                        className="text-red-600 hover:text-red-800 flex items-center gap-1 text-sm font-medium"
+                      >
+                        <FaSignOutAlt /> Logout
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
             </motion.div>
 
             {/* Overlay */}

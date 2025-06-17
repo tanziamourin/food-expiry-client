@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom"; 
-import Lottie from "lottie-react"; 
-// import animationData from "../assets/Animation/Animation.json"; 
+import { Link } from "react-router-dom";
+import Lottie from "lottie-react";
+
+import notFoundAnimation from "../assets//notfound.json";
 
 const NotFound = () => {
   useEffect(() => {
@@ -12,14 +13,14 @@ const NotFound = () => {
     <section className="flex items-center h-screen sm:p-16 bg-base text-base">
       <div className="container flex flex-col items-center justify-center px-5 mx-auto space-y-8 text-center sm:max-w-md">
         <div className="w-full max-w-md">
-          {/* <Lottie animationData={animationData} loop={true} /> */}
+          <Lottie animationData={notFoundAnimation} loop={true} />
         </div>
         <p className="text-3xl font-semibold">
           Looks like our services are currently offline
         </p>
         <Link
           to="/"
-          className="px-8 py-3 font-semibold rounded btn background text-white"
+          className="mt-auto bg-gradient-to-r from-green-500 to-lime-500 hover:from-lime-500 hover:to-green-500 text-white font-semibold rounded-md px-4 py-2 transition"
         >
           Back to homepage
         </Link>
