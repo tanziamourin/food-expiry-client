@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { AuthContext } from "../contexts/AuthContext";
+import regAnimation from "../assets//reg.json";
+import Lottie from "lottie-react";
 
 const Register = () => {
   const { createUser, googleLogin, githubLogin } = useContext(AuthContext);
@@ -52,11 +54,9 @@ const Register = () => {
           <p className="text-center text-sm opacity-90">
             Track your food. Stay fresh. Reduce waste.
           </p>
-          <img
-            src="https://i.ibb.co/VYqkDmy/fridge-illustration.png"
-            alt="food"
-            className="w-64 mt-6"
-          />
+
+           <Lottie animationData={regAnimation} loop={true} />
+
         </div>
 
         {/* Right Panel - Register Form */}

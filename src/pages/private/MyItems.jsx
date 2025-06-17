@@ -24,7 +24,7 @@ const MyItems = () => {
     document.title = "MyItems | FoodTrack";
   }, []);
 
-  // ✅ Show toast if redirected after adding
+  //  Show toast if redirected after adding
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     if (params.get("added") === "true") {
@@ -32,7 +32,7 @@ const MyItems = () => {
     }
   }, [location.search]);
 
-  // ✅ Fetch food items
+  // Fetch food items
   useEffect(() => {
     const fetchData = async () => {
       if (!user) return;
