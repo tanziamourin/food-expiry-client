@@ -1,12 +1,51 @@
-# React + Vite
+# 🥗 FoodTrack - Food Expiry Tracker System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**FoodTrack** is a full-stack web application that helps users manage their food inventory, track expiry dates, write notes, get reminders, and reduce food waste.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Site
 
-## Expanding the ESLint configuration
+Frontend: [https://food-expiry-tracker-e2543.web.app]
+Backend: [https://food-expiry-server.vercel.app]
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 📦 Tech Stack
+
+### 🧠 Frontend:
+- React 19
+- React Router v7
+- TailwindCSS v4
+- Firebase Authentication
+- Lottie / Framer Motion
+- Axios for API calls
+- SweetAlert2, React Hot Toast
+- Recharts for data visualization
+- Dark/Light Theme toggle
+- Vite for fast dev & build
+
+### 🔧 Backend:
+- Node.js & Express
+- MongoDB Atlas
+- JWT Authentication
+- CORS & cookie-parser
+- Deployed on Vercel
+
+---
+
+## 🔐 Features
+
+- ✅ Register / Login / Logout with Firebase
+- 🔒 JWT Protected API Routes
+- 🧾 Add, View, Edit, Delete Foods
+- ⏳ Expiry Countdown for each item
+- 📝 Note taking with timestamps & user ownership
+- 🔍 Search & Category Filters
+- 🧠 AI-powered meal suggestions (before expiry)
+- 📊 Waste Stats Dashboard with Charts
+- 📥 Smart Shopping List Generator
+- 🔔 LocalStorage-based Notifications
+
+
+
