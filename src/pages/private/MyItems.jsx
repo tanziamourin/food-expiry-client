@@ -44,7 +44,7 @@ const MyItems = () => {
       }
 
       try {
-        const res = await fetch(`http://localhost:5000/myfoods?email=${user.email}`, {
+        const res = await fetch(`https://food-expiry-server.vercel.app/myfoods?email=${user.email}`, {
           method: "GET",
           credentials: "include",
         });
@@ -87,7 +87,7 @@ const MyItems = () => {
   const handleUpdateSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`http://localhost:5000/foods/${selectedItem._id}`, {
+      const res = await fetch(`https://food-expiry-server.vercel.app/foods/${selectedItem._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -130,7 +130,7 @@ const MyItems = () => {
 
   const handleDeleteConfirm = async (item) => {
     try {
-      const res = await fetch(`http://localhost:5000/foods/${item._id}`, {
+      const res = await fetch(`https://food-expiry-server.vercel.app/foods/${item._id}`, {
         method: "DELETE",
         credentials: "include",
       });

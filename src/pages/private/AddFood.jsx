@@ -65,7 +65,7 @@ const handleSubmit = async (e) => {
   };
 
   try {
-    const res = await fetch("http://localhost:5000/foods", {
+    const res = await fetch("https://food-expiry-server.vercel.app/foods", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
