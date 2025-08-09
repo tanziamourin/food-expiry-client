@@ -6,7 +6,9 @@ import ExpiryCountdown from "../components/ExpiryCountdown";
 const NearlyExpiry = () => {
   const [items, setItems] = useState([]);
   const [nearlyCount, setNearlyCount] = useState(0);
-  const [expiredCount, setExpiredCount] = useState(0);
+  const [expiredCount, setExpiredCount] = useState(0); // ✅ new state
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,25 +16,37 @@ const NearlyExpiry = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log("📦 Expiring foods fetched:", data);
-        setItems(data);
 
         const today = new Date();
         let nearly = 0;
         let expired = 0;
 
-        data.forEach((item) => {
+        // ✅ Split items into two categories
+        const filtered = data.filter((item) => {
           const expiry = new Date(item.expiryDate);
           const diffDays = Math.ceil((expiry - today) / (1000 * 60 * 60 * 24));
 
-          if (diffDays <= 5 && diffDays > 0) nearly++;
-          else if (diffDays <= 0) expired++;
+          if (diffDays <= 5 && diffDays > 0) {
+            nearly++;
+            return true; // show on list
+          } else if (diffDays <= 0) {
+            expired++;
+          }
+          return false; // don't show expired in grid
         });
 
         setNearlyCount(nearly);
         setExpiredCount(expired);
+        setItems(filtered);
       })
       .catch((error) => console.error("❌ Fetch error:", error));
   }, []);
+
+  // Pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(items.length / itemsPerPage);
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-10">
@@ -50,8 +64,8 @@ const NearlyExpiry = () => {
             className="text-4xl font-extrabold mt-1"
           />
         </div>
-        <div className="bg-gradient-to-r from-red-500 to-red-700 text-white p-6 rounded-lg shadow-lg w-40">
-          <p className="text-lg font-semibold">Already Expired</p>
+        <div className="bg-gradient-to-r from-red-400 to-pink-500 text-white p-6 rounded-lg shadow-lg w-40">
+          <p className="text-lg font-semibold">Expired</p>
           <CountUp
             end={expiredCount}
             duration={2}
@@ -67,70 +81,63 @@ const NearlyExpiry = () => {
       ) : (
         <>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
-            {items.slice(0, 6).map((item) => {
-              const daysLeft = Math.ceil(
-                (new Date(item.expiryDate) - new Date()) / (1000 * 60 * 60 * 24)
-              );
-
-              return (
+            {currentItems.map((item) => (
+              <div
+                key={item._id}
+                className="relative bg-green-50 dark:bg-green-900 border border-green-300 dark:border-green-700 rounded-2xl shadow-lg p-4 overflow-hidden flex flex-col"
+              >
+                {/* Corner Ribbon */}
                 <div
-                  key={item._id}
-                  className="relative bg-green-50 dark:bg-green-900 border border-green-300 dark:border-green-700 rounded-2xl shadow-lg p-4 overflow-hidden flex flex-col"
+                  className="absolute top-3 right-[-40px] rotate-45 px-10 py-1 text-xs font-bold text-white shadow-lg bg-gradient-to-r from-green-400 to-lime-500"
+                  style={{ boxShadow: "0 2px 5px rgba(0,0,0,0.3)" }}
                 >
-                  {/* Corner Ribbon */}
-                  <div
-                    className={`absolute top-3 right-[-40px] rotate-45 px-10 py-1 text-xs font-bold text-white shadow-lg ${
-                      daysLeft <= 0
-                        ? "bg-red-600 dark:bg-red-700"
-                        : "bg-gradient-to-r from-green-400 to-lime-500"
-                    }`}
-                    style={{ boxShadow: "0 2px 5px rgba(0,0,0,0.3)" }}
-                  >
-                    {daysLeft <= 0 ? "Expired" : "Expiring Soon"}
-                  </div>
-
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-50 object-cover rounded-md mb-3"
-                  />
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">
-                    Category: {item.category}
-                  </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">
-                    Quantity: {item.quantity}
-                  </p>
-
-                  {/* Countdown Component */}
-                  <div className="">
-                    <ExpiryCountdown expiryDate={item.expiryDate} />
-                  </div>
-
-                  <button
-                    onClick={() => navigate(`/foods/${item._id}`)}
-                    className="mt-auto bg-gradient-to-r from-green-500 to-lime-500 hover:from-lime-500 hover:to-green-500 text-white font-semibold rounded-md px-4 py-2 transition"
-                  >
-                    See Details
-                  </button>
+                  Expiring Soon
                 </div>
-              );
-            })}
+
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-50 object-cover rounded-md mb-3"
+                />
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                  {item.title}
+                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-300">
+                  Category: {item.category}
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">
+                  Quantity: {item.quantity}
+                </p>
+
+                {/* Countdown Component */}
+                <ExpiryCountdown expiryDate={item.expiryDate} />
+
+                <button
+                  onClick={() => navigate(`/foods/${item._id}`)}
+                  className="mt-auto bg-gradient-to-r from-green-500 to-lime-500 hover:from-lime-500 hover:to-green-500 text-white font-semibold rounded-md px-4 py-2 transition"
+                >
+                  See Details
+                </button>
+              </div>
+            ))}
           </div>
 
-          {/* View All Button */}
-          {items.length > 6 && (
-            <div className="text-center mt-10">
+          {/* Pagination Controls */}
+          <div className="flex justify-center mt-8 gap-2">
+            {Array.from({ length: totalPages }, (_, i) => (
               <button
-                onClick={() => navigate("/all-nearly-expiry")}
-                className="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded-md transition"
+                key={i + 1}
+                onClick={() => setCurrentPage(i + 1)}
+                className={`px-4 py-2 rounded-md border ${
+                  currentPage === i + 1
+                    ? "bg-green-600 text-white"
+                    : "bg-white dark:bg-gray-800 dark:text-white"
+                }`}
               >
-                View All Expiring Items
+                {i + 1}
               </button>
-            </div>
-          )}
+            ))}
+          </div>
         </>
       )}
     </section>

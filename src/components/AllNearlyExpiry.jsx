@@ -7,7 +7,7 @@ const AllNearlyExpiry = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5000/foods/expiring-soon")
+    fetch("https://food-expiry-server.vercel.app/expiring-soon")
       .then((res) => res.json())
       .then((data) => setItems(data))
       .catch((err) =>
@@ -18,7 +18,7 @@ const AllNearlyExpiry = () => {
   return (
     <section className="max-w-7xl mx-auto px-4 py-10">
       <h2 className="text-4xl font-bold text-green-800 dark:text-green-200 text-center mb-8">
-        🧾 All Nearly Expiring Foods
+         All Nearly Expiring Foods
       </h2>
 
       {items.length === 0 ? (
