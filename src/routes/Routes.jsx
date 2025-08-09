@@ -1,4 +1,3 @@
-
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home";
@@ -27,8 +26,11 @@ const router = createBrowserRouter([
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
 
-{ path: "/all-nearly-expiry",element:<AllNearlyExpiry></AllNearlyExpiry>},
-  {  path: "/foods/:id", element: <FoodDetails></FoodDetails> },
+      {
+        path: "/all-nearly-expiry",
+        element: <AllNearlyExpiry></AllNearlyExpiry>,
+      },
+      { path: "/foods/:id", element: <FoodDetails></FoodDetails> },
       // ✅ Private Routes
       {
         path: "/add-food",
@@ -36,7 +38,6 @@ const router = createBrowserRouter([
           <PrivateRoute>
             <AddFood />
           </PrivateRoute>
-         
         ),
       },
       {
@@ -47,16 +48,15 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-     
-      
-        {
-        path : '/my-profile',
-        element : (
+
+      {
+        path: "/my-profile",
+        element: (
           <PrivateRoute>
             <MyProfile></MyProfile>
           </PrivateRoute>
-        )
-      }
+        ),
+      },
     ],
   },
 ]);
