@@ -7,7 +7,7 @@ const ExpiryCountdown = ({ expiryDate }) => {
 
   return (
     <p
-      className={`text-sm font-medium  my-15 ${
+      className={`text-sm font-medium  ${
         diffDays <= 0 ? "text-red-700" : "text-red-500"
       }`}
     >
