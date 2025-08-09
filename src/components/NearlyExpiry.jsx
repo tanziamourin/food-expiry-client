@@ -66,7 +66,7 @@ const NearlyExpiry = () => {
         </p>
       ) : (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
             {items.slice(0, 6).map((item) => {
               const daysLeft = Math.ceil(
                 (new Date(item.expiryDate) - new Date()) / (1000 * 60 * 60 * 24)
