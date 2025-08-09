@@ -4,6 +4,7 @@ import NearlyExpiry from "../components/NearlyExpiry";
 import HeroBannerLottie from "./HeroBannerLottie";
 import AwarenessSection from "../components/AwarenessSection";
 import WasteStatsDashboard from "../components/WasteStatsDashboard";
+import Tips from "../components/Tips";
 
 const Home = () => {
   useEffect(() => {
@@ -15,6 +16,7 @@ const Home = () => {
       <HeroBannerLottie></HeroBannerLottie>
       <NearlyExpiry></NearlyExpiry>
       <AwarenessSection></AwarenessSection>
+      <Tips></Tips>
       <WasteStatsDashboard></WasteStatsDashboard>
     </div>
   );

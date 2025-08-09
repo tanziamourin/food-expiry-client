@@ -12,7 +12,7 @@ const NearlyExpiry = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://food-expiry-server.vercel.app/foods/expiring-soon")
+    fetch("http://localhost:5000/foods/expiring-soon")
       .then((res) => res.json())
       .then((data) => {
         console.log("📦 Expiring foods fetched:", data);

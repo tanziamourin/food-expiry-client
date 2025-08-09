@@ -13,7 +13,7 @@ const Fridge = () => {
 
   useEffect(() => {
     const fetchFoods = async () => {
-      let query = `https://food-expiry-server.vercel.app/foods?search=${searchText}`;
+      let query = `http://localhost:5000/foods?search=${searchText}`;
       if (selectedCategory) {
         query += `&category=${selectedCategory}`;
       }

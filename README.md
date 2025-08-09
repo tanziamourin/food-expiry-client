@@ -7,7 +7,7 @@
 ## 🚀 Live Site
 
 Frontend: [https://food-expiry-tracker-e2543.web.app]
-Backend: [https://food-expiry-server.vercel.app]
+Backend: [http://localhost:5000]
 
 ---
 

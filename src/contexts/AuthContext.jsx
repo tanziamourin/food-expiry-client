@@ -20,7 +20,7 @@ const AuthProvider = ({ children }) => {
   //  JWT fetch and set to cookie
   const getJWT = async (email) => {
     try {
-      const res = await fetch("https://food-expiry-server.vercel.app/jwt", {
+      const res = await fetch("http://localhost:5000/jwt", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
