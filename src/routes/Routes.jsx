@@ -28,7 +28,7 @@ const router = createBrowserRouter([
       { path: "/register", element: <Register /> },
 
 { path: "/all-nearly-expiry",element:<AllNearlyExpiry></AllNearlyExpiry>},
-
+  {  path: "/foods/:id", element: <FoodDetails></FoodDetails> },
       // ✅ Private Routes
       {
         path: "/add-food",
@@ -48,15 +48,7 @@ const router = createBrowserRouter([
         ),
       },
      
-        {
-        path: "/foods/:id",
-        element: (
-          <PrivateRoute>
       
-      <FoodDetails></FoodDetails>
-          </PrivateRoute>
-        ),
-      },
         {
         path : '/my-profile',
         element : (
