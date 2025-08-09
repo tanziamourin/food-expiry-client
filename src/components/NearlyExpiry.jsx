@@ -84,40 +84,52 @@ const NearlyExpiry = () => {
             {currentItems.map((item) => (
               <div
                 key={item._id}
-                className="relative bg-green-50 dark:bg-green-900 border border-green-300 dark:border-green-700 rounded-2xl shadow-lg p-4 overflow-hidden flex flex-col"
+                className="relative border border-gray-200 dark:border-gray-700 rounded-xl shadow-md overflow-hidden flex flex-col bg-white dark:bg-gray-900 transition-all duration-300 hover:shadow-xl hover:scale-[1.02]"
               >
                 {/* Corner Ribbon */}
                 <div
-                  className="absolute top-3 right-[-40px] rotate-45 px-10 py-1 text-xs font-bold text-white shadow-lg bg-gradient-to-r from-green-400 to-lime-500"
-                  style={{ boxShadow: "0 2px 5px rgba(0,0,0,0.3)" }}
+                  className="absolute top-3 right-[-42px] rotate-45 px-10 py-1 text-xs font-bold text-white bg-gradient-to-r from-green-500 to-lime-500 shadow-md"
+                  style={{ boxShadow: "0 2px 6px rgba(0,0,0,0.2)" }}
                 >
                   Expiring Soon
                 </div>
 
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-50 object-cover rounded-md mb-3"
-                />
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
-                  Category: {item.category}
-                </p>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
-                  Quantity: {item.quantity}
-                </p>
+                {/* Image */}
+                <div className="overflow-hidden">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-48 object-cover transition-transform duration-300 hover:scale-105"
+                  />
+                </div>
 
-                {/* Countdown Component */}
-                <ExpiryCountdown expiryDate={item.expiryDate} />
+                {/* Content */}
+                <div className="flex flex-col flex-1 p-4">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Category:{" "}
+                    <span className="font-medium">{item.category}</span>
+                  </p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Quantity:{" "}
+                    <span className="font-medium">{item.quantity}</span>
+                  </p>
 
-                <button
-                  onClick={() => navigate(`/foods/${item._id}`)}
-                  className="mt-auto bg-gradient-to-r from-green-500 to-lime-500 hover:from-lime-500 hover:to-green-500 text-white font-semibold rounded-md px-4 py-2 transition"
-                >
-                  See Details
-                </button>
+                  {/* Countdown */}
+                  <div className="mt-2">
+                    <ExpiryCountdown expiryDate={item.expiryDate} />
+                  </div>
+
+                  {/* Button */}
+                  <button
+                    onClick={() => navigate(`/foods/${item._id}`)}
+                    className="mt-auto bg-gradient-to-r from-green-500 to-lime-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-md px-4 py-2 transition-colors duration-300"
+                  >
+                    See Details
+                  </button>
+                </div>
               </div>
             ))}
           </div>
