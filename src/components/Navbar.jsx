@@ -66,7 +66,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
         <Link
           to="/"
-          className="text-2xl font-bold text-green-500 tracking-wide dark:text-green-400"
+          className="text-2xl  font-bold text-green-800 dark:text-green-200 "
         >
           🍃 FoodTrack
         </Link>

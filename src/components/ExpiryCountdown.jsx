@@ -7,11 +7,11 @@ const ExpiryCountdown = ({ expiryDate }) => {
 
   return (
     <p
-      className={`text-sm font-medium  ${
+      className={`text-sm font-medium  mb-2  ${
         diffDays <= 0 ? "text-red-700" : "text-red-500"
       }`}
     >
-      Expiry Date: {expiry.toLocaleDateString()} ({diffDays} days left)
+      <small className="">Expiry Date: {expiry.toLocaleDateString()} ({diffDays} days left)</small>
     </p>
   );
 };

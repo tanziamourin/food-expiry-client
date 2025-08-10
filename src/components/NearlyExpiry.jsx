@@ -51,7 +51,7 @@ const NearlyExpiry = () => {
   return (
     <section className="max-w-7xl mx-auto px-4 py-10">
       <h2 className="text-5xl my-10 mb-10 font-bold text-green-800 dark:text-green-200 text-center">
-        ⏰ Nearly Expiry
+         Nearly Expiry
       </h2>
 
       {/* CountUp Stats */}

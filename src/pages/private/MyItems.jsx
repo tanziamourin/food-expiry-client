@@ -167,8 +167,8 @@ const MyItems = () => {
   }
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">My Food Items</h1>
+    <div className="max-w-7xl mx-auto p-6">
+      <h1 className="text-5xl my-10 mb-10 font-bold text-green-800 dark:text-green-200 text-center">My Food Items</h1>
 
       <table className="w-full border-collapse border border-gray-300">
         <thead>
