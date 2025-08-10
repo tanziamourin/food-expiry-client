@@ -31,8 +31,8 @@ const staticTips = [
 
 const Tips = () => {
   return (
-    <div className="max-w-7xl mx-auto p-8">
-      <h1 className="text-5xl my-10 mb-10 font-bold text-green-800 dark:text-green-200 text-center">
+    <div className="max-w-7xl mx-auto p-20 my-16">
+      <h1 className="md:text-5xl text-4xl  font-extrabold pb-4 bg-gradient-to-r from-green-400 to-lime-500 bg-clip-text text-transparent mb-8 text-center tracking-wide ">
         Food-Saving Tips
       </h1>
       <div className="grid md:grid-cols-3 gap-12">

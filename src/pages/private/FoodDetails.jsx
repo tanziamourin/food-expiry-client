@@ -18,14 +18,14 @@ const FoodDetails = () => {
 
   // Fetch food details
   useEffect(() => {
-    fetch(`http://localhost:5000/foods/${id}`)
+    fetch(`https://food-expiry-server.vercel.app/foods/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setFood(data);
 
         // Fetch related items after food is loaded
         if (data?.category) {
-          fetch(`http://localhost:5000/foods?category=${data.category}`)
+          fetch(`https://food-expiry-server.vercel.app/foods?category=${data.category}`)
             .then((res) => res.json())
             .then((items) => {
               const filtered = items.filter((item) => item._id !== id);
@@ -37,14 +37,14 @@ const FoodDetails = () => {
 
   // Fetch notes
   useEffect(() => {
-    fetch(`http://localhost:5000/foods/${id}/notes`)
+    fetch(`https://food-expiry-server.vercel.app/foods/${id}/notes`)
       .then((res) => res.json())
       .then((data) => setAllNotes(data));
   }, [id]);
 
   const handleAddNote = async () => {
     if (!note.trim()) return;
-    const res = await fetch(`http://localhost:5000/foods/${id}/notes`, {
+    const res = await fetch(`https://food-expiry-server.vercel.app/foods/${id}/notes`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

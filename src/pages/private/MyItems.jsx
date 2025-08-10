@@ -44,7 +44,7 @@ const MyItems = () => {
       }
 
       try {
-        const res = await fetch(`http://localhost:5000/myfoods?email=${user.email}`, {
+        const res = await fetch(`https://food-expiry-server.vercel.app/myfoods?email=${user.email}`, {
           method: "GET",
           credentials: "include",
         });
@@ -87,7 +87,7 @@ const MyItems = () => {
   const handleUpdateSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`http://localhost:5000/foods/${selectedItem._id}`, {
+      const res = await fetch(`https://food-expiry-server.vercel.app/foods/${selectedItem._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -130,7 +130,7 @@ const MyItems = () => {
 
   const handleDeleteConfirm = async (item) => {
     try {
-      const res = await fetch(`http://localhost:5000/foods/${item._id}`, {
+      const res = await fetch(`https://food-expiry-server.vercel.app/foods/${item._id}`, {
         method: "DELETE",
         credentials: "include",
       });
@@ -153,15 +153,17 @@ const MyItems = () => {
 
   if (items.length === 0) {
     return (
-      <div className="text-center mt-10">
-        <h2 className="text-2xl font-semibold mb-4">No Food Items Found</h2>
+      <div className="flex justify-center items-center my-26 ">
+       <section className="text-center my-10 ">
+         <h2 className="text-4xl font-bold mb-5">No Food Items Found</h2>
         <p className="mb-4">You haven’t added any food items yet.</p>
         <a
           href="/add-food"
-          className="inline-block px-6 py-2 bg-pink-600 text-white rounded hover:bg-pink-700 transition"
+          className="inline-block px-6 py-2 bg-gradient-to-r from-green-500 to-lime-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-md  transition-colors duration-300"
         >
           Add Food Item
         </a>
+       </section>
       </div>
     );
   }

@@ -51,7 +51,7 @@ const HeroBannerLottie = () => {
   const currentSlide = slides[current];
 
   return (
-    <div className="relative h-[90vh] bg-white dark:bg-gray-900 overflow-hidden">
+    <div className="relative h-[90vh] max-w-7xl mx-auto bg-white dark:bg-gray-900 overflow-hidden">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentSlide.id}

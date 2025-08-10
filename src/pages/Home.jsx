@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import NearlyExpiry from "../components/NearlyExpiry";
 
 import HeroBannerLottie from "./HeroBannerLottie";
-import AwarenessSection from "../components/AwarenessSection";
+
 import WasteStatsDashboard from "../components/WasteStatsDashboard";
 import Tips from "../components/Tips";
+import NearlyExpiryPage from "../components/NearlyExpiryPage";
+import WhyTrackFood from "../components/WhyTrackFood";
 
 const Home = () => {
   useEffect(() => {
@@ -14,8 +15,10 @@ const Home = () => {
   return (
     <div>
       <HeroBannerLottie></HeroBannerLottie>
-      <NearlyExpiry></NearlyExpiry>
-      <AwarenessSection></AwarenessSection>
+
+      <NearlyExpiryPage></NearlyExpiryPage>
+
+      <WhyTrackFood></WhyTrackFood>
       <Tips></Tips>
       <WasteStatsDashboard></WasteStatsDashboard>
     </div>

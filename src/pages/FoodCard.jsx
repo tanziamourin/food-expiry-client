@@ -1,46 +1,66 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import ExpiryCountdown from "../components/ExpiryCountdown";
 
 const FoodCard = ({ item }) => {
   const navigate = useNavigate();
-
   const { _id, title, image, category, quantity, expiryDate } = item;
 
-  const isExpired = new Date(expiryDate) < new Date();
+  const today = new Date();
+  const expiry = new Date(expiryDate);
+
+  const isExpired = expiry < today;
+  const daysToExpiry = Math.ceil((expiry - today) / (1000 * 60 * 60 * 24)); // days left
 
   return (
-    <div className="bg-green-50 dark:bg-green-900 border border-green-300 dark:border-green-700 rounded-2xl shadow-md p-4 flex flex-col justify-between">
-      <img
-        src={image}
-        alt={title}
-        className="rounded-sm w-full h-50 object-cover mb-4"
-        loading="lazy"
-      />
-
-      <h3 className="text-xl font-semibold text-green-900 dark:text-green-200 mb-2">
-        {title}
-      </h3>
-
-      <p className="text-green-800 dark:text-green-300 mb-1">
-        Category: {category}
-      </p>
-
-      <p className="text-green-700 dark:text-green-400 font-medium mb-3">
-        Quantity: {quantity}
-      </p>
-
-      {isExpired && (
-        <span className="inline-block mb-3 px-3 py-1 bg-red-600 w-25 text-white text-sm rounded-full font-semibold">
+    <div
+      className="relative group rounded-2xl overflow-hidden bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 h-[420px] flex flex-col"
+    >
+      {/* Corner Ribbon */}
+      {isExpired ? (
+        <div className="absolute top-5 right-[-42px] rotate-45 px-10 py-1 text-xs font-bold text-white bg-red-600 shadow-md z-10">
           Expired
-        </span>
-      )}
+        </div>
+      ) : daysToExpiry <= 7 ? (
+        <div className="absolute top-5 right-[-42px] rotate-45 px-10 py-1 text-xs font-bold text-white bg-gradient-to-r from-orange-600 to-yellow-500 shadow-md z-10">
+          Expiring Soon
+        </div>
+      ) : null}
 
-      <button
-        onClick={() => navigate(`/foods/${_id}`)}
-        className="mt-auto bg-gradient-to-r from-green-500 to-lime-500 hover:from-lime-500 hover:to-green-500 text-white font-semibold rounded-md px-4 py-2 transition"
-      >
-        See Details
-      </button>
+      {/* Image Section */}
+      <div className="relative overflow-hidden h-48">
+        <img
+          src={image}
+          alt={title}
+          className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500 ease-out"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+      </div>
+
+      {/* Card Content */}
+      <div className="p-5 flex flex-col flex-grow">
+        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1 group-hover:text-green-600 transition-colors duration-300">
+          {title}
+        </h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400">
+          Category: <span className="font-medium">{category}</span>
+        </p>
+        <p className="text-sm text-gray-600 dark:text-gray-400">
+          Quantity: <span className="font-medium">{quantity}</span>
+        </p>
+
+        <div className="mt-2">
+          <ExpiryCountdown expiryDate={expiryDate} />
+        </div>
+
+        <button
+          onClick={() => navigate(`/foods/${_id}`)}
+          className="mt-auto inline-block bg-gradient-to-r from-green-500 to-lime-500 hover:from-lime-600 hover:to-green-600 text-white font-semibold rounded-md px-4 py-2 transition-all duration-300 shadow-md hover:shadow-lg"
+        >
+          See Details
+        </button>
+      </div>
     </div>
   );
 };

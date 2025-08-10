@@ -12,7 +12,8 @@ import PrivateRoute from "./PrivateRoute";
 import Fridge from "../pages/Fridge";
 import FoodDetails from "../pages/private/FoodDetails";
 import MyProfile from "../pages/private/MyProfile";
-import AllNearlyExpiry from "../components/AllNearlyExpiry";
+import AllNearlyExpiry from "../components/NearlyExpiryPage";
+import RecipeBeforeExpiry from "../pages/RecipeBeforeExpiry";
 // import PrivateRoute from "../components/PrivateRoute";
 
 const router = createBrowserRouter([
@@ -23,13 +24,12 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home></Home> },
       { path: "/fridge", element: <Fridge></Fridge> },
+      { path: "/recipe-before-expiry", element: <RecipeBeforeExpiry></RecipeBeforeExpiry> },
+      
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
 
-      {
-        path: "/all-nearly-expiry",
-        element: <AllNearlyExpiry></AllNearlyExpiry>,
-      },
+  
       { path: "/foods/:id", element: <FoodDetails></FoodDetails> },
       // ✅ Private Routes
       {

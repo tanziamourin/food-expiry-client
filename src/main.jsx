@@ -10,6 +10,7 @@ import router from "./routes/Routes";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
+      
       <Toaster position="top-center" reverseOrder={false} />
       <RouterProvider router={router} />
       
