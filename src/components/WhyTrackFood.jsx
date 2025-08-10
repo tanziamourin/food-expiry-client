@@ -68,13 +68,13 @@ const benefits = [
 ];
 
 const lightGradients = [
-  "bg-gradient-to-tr from-green-400 via-green-300 to-green-200",
-  "bg-gradient-to-tr from-green-300 via-green-200 to-green-100",
+  "bg-gradient-to-r from-green-400 to-lime-500",
+  "bg-gradient-to-r from-green-400 to-lime-500",
 ];
 
 const darkGradients = [
-  "bg-gradient-to-tr from-green-900 via-green-800 to-green-700",
-  "bg-gradient-to-tr from-green-800 via-green-700 to-green-600",
+  "bg-gradient-to-r from-green-400 to-lime-500",
+  "bg-gradient-to-r from-green-400 to-lime-500",
 ];
 
 const WhyTrackFood = () => {
