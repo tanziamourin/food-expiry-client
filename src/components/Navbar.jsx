@@ -1,9 +1,8 @@
-import { useContext, useEffect, useState, useRef } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { FaBars, FaTimes, FaSignOutAlt } from "react-icons/fa";
-import { AuthContext } from "../contexts/AuthContext";
+import { AuthContext } from "./AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
-import logo from "./../../public/Green_Yellow_Flat_Modern_Food_Organic_Logo-removebg-preview.png";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
@@ -32,7 +31,7 @@ const Navbar = () => {
   }, [dropdownOpen]);
 
   const handleLogout = () => {
-    logout().catch((err) => console.error(err));
+    logout().catch(console.error);
     setDropdownOpen(false);
   };
 
@@ -77,19 +76,17 @@ const Navbar = () => {
     <nav className="sticky top-0 z-50 p-2 bg-white dark:bg-gray-900 shadow-md transition-colors duration-300 border-b border-gray-200 dark:border-gray-700">
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center   space-x-3">
+        <Link to="/" className="flex items-center space-x-3">
           <img
-            src={logo}
+            src="/logo.png" // replace with your logo path
             alt="Food Tracker Logo"
-            className="h-15 w-auto p-1   bg-gradient-to-r from-green-200 to-lime-200 rounded-full " // reduced padding
+            className="h-12 w-auto p-1 bg-gradient-to-r from-green-200 to-lime-200 rounded-full"
           />
           <span className="text-3xl font-bold tracking-wide">FoodTrack</span>
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex flex-1 justify-center gap-4">
-          {navLinks}
-        </div>
+        <div className="hidden md:flex flex-1 justify-center gap-4">{navLinks}</div>
 
         {/* Right Side */}
         <div className="flex items-center gap-4">
@@ -119,11 +116,7 @@ const Navbar = () => {
                   stroke="currentColor"
                   strokeWidth={2}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M19 9l-7 7-7-7"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
 
@@ -212,10 +205,7 @@ const Navbar = () => {
                   Menu
                 </h2>
                 <button onClick={toggleMenu} aria-label="Close Menu">
-                  <FaTimes
-                    size={22}
-                    className="text-gray-600 dark:text-gray-300"
-                  />
+                  <FaTimes size={22} className="text-gray-600 dark:text-gray-300" />
                 </button>
               </div>
               <div className="px-4 py-4 space-y-3">
