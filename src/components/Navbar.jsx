@@ -60,16 +60,7 @@ const Navbar = () => {
       <NavLink to="/recipe-before-expiry" className={getNavLinkClass}>
         Recipes
       </NavLink>
-      {!user && (
-        <>
-          <NavLink to="/login" className={getNavLinkClass}>
-            Login
-          </NavLink>
-          <NavLink to="/register" className={getNavLinkClass}>
-            Register
-          </NavLink>
-        </>
-      )}
+ 
     </>
   );
 
