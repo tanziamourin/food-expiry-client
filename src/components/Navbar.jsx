@@ -211,7 +211,7 @@ const Navbar = () => {
               <div className="px-4 py-4 space-y-3">
                 {navLinks}
                 {!user && (
-                  <div className="hidden md:flex gap-2">
+                  <div className=" gap-2">
                     <NavLink
                       to="/login"
                       className={getNavLinkClass}
