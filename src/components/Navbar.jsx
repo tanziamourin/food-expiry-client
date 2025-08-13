@@ -60,7 +60,6 @@ const Navbar = () => {
       <NavLink to="/recipe-before-expiry" className={getNavLinkClass}>
         Recipes
       </NavLink>
- 
     </>
   );
 
@@ -243,6 +242,24 @@ const Navbar = () => {
                     >
                       <FaSignOutAlt /> Logout
                     </button>
+                  </div>
+                )}
+                {!user && (
+                  <div className="hidden md:flex gap-2">
+                    <NavLink
+                      to="/login"
+                      className={getNavLinkClass}
+                      onClick={toggleMenu}
+                    >
+                      Login
+                    </NavLink>
+                    <NavLink
+                      to="/register"
+                      className={getNavLinkClass}
+                      onClick={toggleMenu}
+                    >
+                      Register
+                    </NavLink>
                   </div>
                 )}
               </div>
