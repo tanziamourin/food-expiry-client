@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { FaBars, FaTimes, FaSignOutAlt } from "react-icons/fa";
-// import { AuthContext } from "./AuthContext";
+import logo from "../../public/Green_Yellow_Flat_Modern_Food_Organic_Logo-removebg-preview.png";
 import { motion, AnimatePresence } from "framer-motion";
 import { AuthContext } from "../contexts/AuthContext";
 
@@ -79,15 +79,17 @@ const Navbar = () => {
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-3">
           <img
-            src="/logo.png" // replace with your logo path
+            src={logo}
             alt="Food Tracker Logo"
-            className="h-12 w-auto p-1 bg-gradient-to-r from-green-200 to-lime-200 rounded-full"
+            className="h-15 w-auto p-1 bg-gradient-to-r from-green-200 to-lime-200 rounded-full"
           />
           <span className="text-3xl font-bold tracking-wide">FoodTrack</span>
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex flex-1 justify-center gap-4">{navLinks}</div>
+        <div className="hidden md:flex flex-1 justify-center gap-4">
+          {navLinks}
+        </div>
 
         {/* Right Side */}
         <div className="flex items-center gap-4">
@@ -117,7 +119,11 @@ const Navbar = () => {
                   stroke="currentColor"
                   strokeWidth={2}
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19 9l-7 7-7-7"
+                  />
                 </svg>
               </button>
 
@@ -206,7 +212,10 @@ const Navbar = () => {
                   Menu
                 </h2>
                 <button onClick={toggleMenu} aria-label="Close Menu">
-                  <FaTimes size={22} className="text-gray-600 dark:text-gray-300" />
+                  <FaTimes
+                    size={22}
+                    className="text-gray-600 dark:text-gray-300"
+                  />
                 </button>
               </div>
               <div className="px-4 py-4 space-y-3">
