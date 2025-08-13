@@ -1,8 +1,9 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { FaBars, FaTimes, FaSignOutAlt } from "react-icons/fa";
-import { AuthContext } from "./AuthContext";
+// import { AuthContext } from "./AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
+import { AuthContext } from "../contexts/AuthContext";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);

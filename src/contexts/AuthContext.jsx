@@ -1,10 +1,12 @@
 import React, { createContext, useState, useEffect } from "react";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-import app from "./firebase"; // Your initialized Firebase app
+import {  onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "../firebase.config";
 
+
+// import app from "./firebase"; 
 export const AuthContext = createContext();
 
-const auth = getAuth(app);
+
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
