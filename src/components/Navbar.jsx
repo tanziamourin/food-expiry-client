@@ -210,6 +210,24 @@ const Navbar = () => {
               </div>
               <div className="px-4 py-4 space-y-3">
                 {navLinks}
+                {!user && (
+                  <div className="hidden md:flex gap-2">
+                    <NavLink
+                      to="/login"
+                      className={getNavLinkClass}
+                      onClick={toggleMenu}
+                    >
+                      Login
+                    </NavLink>
+                    <NavLink
+                      to="/register"
+                      className={getNavLinkClass}
+                      onClick={toggleMenu}
+                    >
+                      Register
+                    </NavLink>
+                  </div>
+                )}
                 {user && (
                   <div className="mt-4 border-t border-gray-200 dark:border-gray-700 pt-4 space-y-3">
                     <Link
@@ -242,24 +260,6 @@ const Navbar = () => {
                     >
                       <FaSignOutAlt /> Logout
                     </button>
-                  </div>
-                )}
-                {!user && (
-                  <div className="hidden md:flex gap-2">
-                    <NavLink
-                      to="/login"
-                      className={getNavLinkClass}
-                      onClick={toggleMenu}
-                    >
-                      Login
-                    </NavLink>
-                    <NavLink
-                      to="/register"
-                      className={getNavLinkClass}
-                      onClick={toggleMenu}
-                    >
-                      Register
-                    </NavLink>
                   </div>
                 )}
               </div>
